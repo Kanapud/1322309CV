@@ -1,6 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import cv2
+import matplotlib.pyplot as plt
+import numpy as np
 
 # # binary image
 # bin = np.full((100, 256), 0, dtype=np.uint8) #Full สร้างของที่มีมิติ สูงกับกว้าง
