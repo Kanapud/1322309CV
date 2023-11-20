@@ -8,7 +8,7 @@ def detect_key_press(key, typed_text):
     if key in keyboard_layout:
         if key == 'Backspace' and len(typed_text) > 0:
             typed_text = typed_text[:-1]  # Remove the last character
-        elif key != 'Backspace':
+        elif key != 'Backspace' and key != 'Space':
             typed_text += key
         print(f"Typed: {typed_text}")
 
@@ -44,6 +44,10 @@ def process_webcam():
                     x, y = int(point.x * frame.shape[1]), int(point.y * frame.shape[0])
                     cv2.circle(frame, (x, y), 5, (255, 0, 0), -1)
 
+        # Draw the virtual keyboard
+        for key, (x, y, w, h) in keyboard_layout.items():
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
         # Check for key presses
         key = cv2.waitKey(1)
         if key == 27:  # Esc key
@@ -51,6 +55,9 @@ def process_webcam():
         elif key != -1 and key != 255:  # Check if any key is pressed
             key_char = chr(key).upper()  # Get the character representation of the key
             detect_key_press(key_char, typed_text)
+
+        # Display the frame
+        cv2.imshow('Webcam', frame)
 
     # Release the webcam
     cap.release()
